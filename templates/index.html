@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Face Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      text-align: center;
+      background: #f4f4f4;
+      padding: 2em;
+      margin: 0;
+    }
+
+    h1 {
+      color: #333;
+      margin-bottom: 1em;
+    }
+
+    #face {
+      width: 256px;
+      height: 256px;
+      object-fit: cover;
+      border-radius: 12px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+      margin-bottom: 1em;
+      display: none;
+    }
+
+    button {
+      font-size: 16px;
+      padding: 10px 20px;
+      margin: 0.5em;
+      background: #007bff;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #0056b3;
+    }
+
+    #loader {
+      display: none;
+      margin: 1em auto;
+      color: #333;
+      font-size: 16px;
+    }
+
+    @media (max-width: 600px) {
+      #face {
+        width: 80%;
+        height: auto;
+      }
+
+      button {
+        width: 80%;
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>AI Face Generator</h1>
+
+  <img id="face" src="" alt="Generated Face" />
+  <div id="loader">🌀 Generating...</div>
+
+  <div>
+    <button id="generateBtn">🎲 Generate Face</button>
+    <button id="downloadBtn" style="display:none;">⬇️ Download</button>
+  </div>
+
+  <script>
+    const btn = document.getElementById('generateBtn');
+    const img = document.getElementById('face');
+    const loader = document.getElementById('loader');
+    const downloadBtn = document.getElementById('downloadBtn');
+
+    let currentImageData = null;
+
+    btn.addEventListener('click', () => {
+      loader.style.display = 'block';
+      img.style.display = 'none';
+      downloadBtn.style.display = 'none';
+
+      fetch('/generate')
+        .then(res => res.json())
+        .then(data => {
+          currentImageData = data.image;
+          img.src = "data:image/jpeg;base64," + currentImageData;
+          loader.style.display = 'none';
+          img.style.display = 'inline';
+          downloadBtn.style.display = 'inline';
+        })
+        .catch(err => {
+          console.error('Error:', err);
+          loader.innerText = "❌ Error generating image.";
+        });
+    });
+
+    downloadBtn.addEventListener('click', () => {
+      if (currentImageData) {
+        const a = document.createElement('a');
+        a.href = "data:image/jpeg;base64," + currentImageData;
+        a.download = "generated_face.jpg";
+        a.click();
+      }
+    });
+
+    window.onload = () => btn.click();
+  </script>
+
+</body>
+</html>

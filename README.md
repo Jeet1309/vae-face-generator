@@ -61,7 +61,8 @@ pip install -r requirements.txt
 python app.py
 ```
 Then open your browser at: http://127.0.0.1:5000
-your loacl machine might have a diffrent address look for it in the terminal when you run the app.py as shown below
+your loacl machine might have a diffrent address look for it in the terminal when you run the app.py as shown below:
+
 <img src="address.png"></img>
 
 ### 🧊 What It Does

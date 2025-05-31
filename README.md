@@ -10,7 +10,7 @@ The final app allows users to **generate synthetic human faces** by sampling fro
 
 Below is a short video showing the model's progression during training — the generated faces improve as the model learns:
 
-> 📹 **Video**: [`training_progress.mp4`](./training_progress.mp4)
+> 📹 **Video**:
 
 [<video src="training_progress.mp4" controls autoplay loop muted width="100%"></video>](https://github.com/user-attachments/assets/35ce2664-19bc-4e47-ba33-089ff6574c24)
 

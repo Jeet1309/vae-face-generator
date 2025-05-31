@@ -62,7 +62,7 @@ python app.py
 ```
 Then open your browser at: http://127.0.0.1:5000
 your loacl machine might have a diffrent address look for it in the terminal when you run the app.py as shown below
-<img src="address.jpg"></img>
+<img src="address.png"></img>
 
 ### 🧊 What It Does
 - Every time you click Generate, a new latent vector is randomly sampled.

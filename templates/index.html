@@ -1,120 +1,222 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-  <meta charset="UTF-8">
-  <title>AI Face Generator</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <title>✨ AI Face Generator</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+  
   <style>
+    /* Reset */
+    * {
+      box-sizing: border-box;
+    }
+    
     body {
-      font-family: 'Segoe UI', sans-serif;
-      text-align: center;
-      background: #f4f4f4;
-      padding: 2em;
       margin: 0;
+      min-height: 100vh;
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top left, #0f2027, #203a43, #2c5364);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 1.5rem;
+      color: #eee;
+      user-select: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
     }
-
+    
+    .container {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 24px;
+      padding: 2.5rem 3rem;
+      max-width: 380px;
+      width: 100%;
+      box-shadow:
+        0 0 30px 2px rgba(54, 144, 255, 0.35),
+        inset 0 0 40px 1px rgba(255,255,255,0.15);
+      backdrop-filter: blur(18px);
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+    
     h1 {
-      color: #333;
-      margin-bottom: 1em;
+      font-weight: 700;
+      font-size: 2.2rem;
+      margin-bottom: 2rem;
+      letter-spacing: 1.3px;
+      text-shadow:
+        0 0 8px #3898ff,
+        0 0 15px #1f73e9;
     }
-
+    
     #face {
-      width: 256px;
-      height: 256px;
+      width: 280px;
+      height: 280px;
+      border-radius: 24px;
       object-fit: cover;
-      border-radius: 12px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.2);
-      margin-bottom: 1em;
-      display: none;
-    }
-
-    button {
-      font-size: 16px;
-      padding: 10px 20px;
-      margin: 0.5em;
-      background: #007bff;
-      color: white;
-      border: none;
-      border-radius: 6px;
+      margin-bottom: 2rem;
+      box-shadow:
+        0 0 30px rgba(54, 144, 255, 0.8),
+        0 0 50px rgba(54, 144, 255, 0.4);
+      transition: transform 0.4s ease, box-shadow 0.4s ease;
       cursor: pointer;
-      transition: background 0.3s ease;
-    }
-
-    button:hover {
-      background: #0056b3;
-    }
-
-    #loader {
       display: none;
-      margin: 1em auto;
-      color: #333;
-      font-size: 16px;
     }
-
-    @media (max-width: 600px) {
+    #face:hover {
+      transform: scale(1.05) ;
+      box-shadow:
+        0 0 60px #2f8fff,
+        0 0 100px #40a1ff;
+    }
+    
+    #loader {
+      margin-bottom: 2rem;
+      display: none;
+      width: 40px;
+      height: 40px;
+      margin-left: auto;
+      margin-right: auto;
+      border: 5px solid #2c5364;
+      border-top: 5px solid #3898ff;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+    
+    .btn-group {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      flex-wrap: wrap;
+    }
+    
+    button {
+      background: linear-gradient(135deg, #3898ff, #1f73e9);
+      border: none;
+      border-radius: 9999px;
+      color: white;
+      font-weight: 600;
+      font-size: 1rem;
+      padding: 0.85rem 2rem;
+      box-shadow:
+        0 4px 15px rgba(54, 144, 255, 0.6);
+      cursor: pointer;
+      transition:
+        background-color 0.3s ease,
+        box-shadow 0.3s ease,
+        transform 0.2s ease;
+      user-select: none;
+      min-width: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+    button .material-icons {
+      font-size: 1.2rem;
+      line-height: 1;
+      vertical-align: middle;
+    }
+    button:hover:not(:disabled) {
+      background: linear-gradient(135deg, #1f73e9, #3898ff);
+      box-shadow:
+        0 6px 20px rgba(54, 144, 255, 0.9);
+      transform: scale(1.05);
+    }
+    button:disabled {
+      background: #555;
+      box-shadow: none;
+      cursor: not-allowed;
+    }
+    
+    @media (max-width: 440px) {
+      .container {
+        padding: 2rem 1.5rem;
+      }
       #face {
-        width: 80%;
+        width: 100%;
         height: auto;
       }
-
+      .btn-group {
+        flex-direction: column;
+      }
       button {
-        width: 80%;
-        font-size: 18px;
+        width: 100%;
+        min-width: unset;
       }
     }
   </style>
 </head>
 <body>
+  <div class="container" role="main" aria-label="AI Face Generator">
+    <h1>✨ AI Face Generator</h1>
 
-  <h1>AI Face Generator</h1>
+    <img id="face" alt="Generated AI Face" aria-live="polite" />
 
-  <img id="face" src="" alt="Generated Face" />
-  <div id="loader">🌀 Generating...</div>
+    <div id="loader" role="status" aria-live="polite" aria-label="Loading"></div>
 
-  <div>
-    <button id="generateBtn">🎲 Generate Face</button>
-    <button id="downloadBtn" style="display:none;">⬇️ Download</button>
+    <div class="btn-group">
+      <button id="generateBtn" aria-label="Generate new AI face">
+        <span class="material-icons">casino</span> Generate Face
+      </button>
+      <button id="downloadBtn" style="display:none;" aria-label="Download generated AI face">
+        <span class="material-icons">file_download</span> Download
+      </button>
+    </div>
   </div>
 
   <script>
-    const btn = document.getElementById('generateBtn');
-    const img = document.getElementById('face');
-    const loader = document.getElementById('loader');
+    const generateBtn = document.getElementById('generateBtn');
     const downloadBtn = document.getElementById('downloadBtn');
+    const faceImg = document.getElementById('face');
+    const loader = document.getElementById('loader');
 
     let currentImageData = null;
 
-    btn.addEventListener('click', () => {
-      loader.style.display = 'block';
-      img.style.display = 'none';
+    async function generateFace() {
+      generateBtn.disabled = true;
       downloadBtn.style.display = 'none';
+      loader.style.display = 'block';
+      faceImg.style.display = 'none';
 
-      fetch('/generate')
-        .then(res => res.json())
-        .then(data => {
-          currentImageData = data.image;
-          img.src = "data:image/jpeg;base64," + currentImageData;
-          loader.style.display = 'none';
-          img.style.display = 'inline';
-          downloadBtn.style.display = 'inline';
-        })
-        .catch(err => {
-          console.error('Error:', err);
-          loader.innerText = "❌ Error generating image.";
-        });
-    });
+      try {
+        const response = await fetch('/generate');
+        const data = await response.json();
+        currentImageData = data.image;
+
+        faceImg.src = `data:image/jpeg;base64,${currentImageData}`;
+        faceImg.style.display = 'block';
+        downloadBtn.style.display = 'inline-flex';
+      } catch (err) {
+        loader.style.display = 'none';
+        alert('❌ Error generating image. Please try again.');
+        console.error(err);
+      } finally {
+        loader.style.display = 'none';
+        generateBtn.disabled = false;
+      }
+    }
+
+    generateBtn.addEventListener('click', generateFace);
 
     downloadBtn.addEventListener('click', () => {
-      if (currentImageData) {
-        const a = document.createElement('a');
-        a.href = "data:image/jpeg;base64," + currentImageData;
-        a.download = "generated_face.jpg";
-        a.click();
-      }
+      if (!currentImageData) return;
+      const a = document.createElement('a');
+      a.href = `data:image/jpeg;base64,${currentImageData}`;
+      a.download = 'generated_face.jpg';
+      a.click();
     });
 
-    window.onload = () => btn.click();
+    // Auto generate on load
+    window.onload = () => generateFace();
   </script>
-
 </body>
 </html>

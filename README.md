@@ -60,11 +60,13 @@ pip install -r requirements.txt
 ```bash
 python app.py
 ```
-Then open your browser at: http://127.0.0.1:5000
-your loacl machine might have a diffrent address look for it in the terminal when you run the app.py as shown below:
+\\
+Then open your browser at: http://127.0.0.1:5000 \\
+Your local machine might have a different address. Look for it in the terminal when you run the app.py as shown below: \\
 
 <img src="address.png"></img>
 
+- If you still have any doubts, check he <video src="tutorial.mp4">tutorial<\video>  
 ### 🧊 What It Does
 - Every time you click Generate, a new latent vector is randomly sampled.
 - The decoder produces a face image from this latent vector.

@@ -66,7 +66,7 @@ python app.py
 
 <img src="address.png"></img>
 
-- If you still have any doubts, check he <video src="tutorial.mp4">tutorial<\video>  
+- If you still have any doubts, check the <video src="tutorial.mp4">tutorial<\video>  
 ### 🧊 What It Does
 - Every time you click Generate, a new latent vector is randomly sampled.
 - The decoder produces a face image from this latent vector.
